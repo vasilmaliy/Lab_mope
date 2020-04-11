@@ -1,4 +1,4 @@
-package main.java.lab5;
+
 
 public class Data {
 
