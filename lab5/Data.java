@@ -1,5 +1,4 @@
 
-
 public class Data {
 
 
@@ -53,6 +52,9 @@ public class Data {
             {1000000.0,	1.64485515072,	1.95996635682,	2.57583422011,	3.29053646126}
     };
 
+    //30 45 60
+    public double[] fisherTable =
+            {2.16 , 2.06, 2.036};
 
     public double getTableCohren(int f1, int f2){
         double[] n = new double[]{1,2,3,4,5,6,7,8,9,10,16,36,144};
@@ -91,5 +93,14 @@ public class Data {
             }
         }
         return 0.;
+    }
+    public double getFisherValue(int f3, int f4, double q){
+            if(f3==30)
+                return fisherTable[0];
+            if(f3 == 45)
+                return fisherTable[1];
+            if(f3 == 60)
+                return fisherTable[2];
+            return 164.;
     }
 }
