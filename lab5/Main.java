@@ -34,14 +34,28 @@ public class Main {
     private static double dispersionB2;
     private static int f3;
     private static double[] stY;
+    private static int coef = 0;
+    private static int nEf = 0;
+    private static int nQt = 0;
 
     private static int m = 3;
     public static int d = 0;
     private static double p = 0.95;
     private static double q = 0.05;
 
-
     public static void main(String[] args) {
+//запустити 100 разів порахувати скільки разів приходили до ефекту взаємодії та квадратичних членів
+        for(int i=0; i < 100; i++) {
+            while (!count()) {
+                coef++;
+            }
+            System.out.println();
+        }
+        System.out.println("приходили до ефекту взаємодії : "+nEf);
+        System.out.println("приходили до квадратичних членів : "+nQt);
+    }
+
+    public static boolean count(){
 
         middleMinX = (minX1 + minX2 + minX3)/3;
         middleMaxX = (maxX1 + maxX2 + maxX3)/3;
@@ -146,9 +160,19 @@ public class Main {
 
         double[] allY = new double[N];
         for(int i = 0; i < allY.length; i++) {
-            allY[i] = allB.get(0) + allB.get(1) * matrixX[i][0] + allB.get(2) * matrixX[i][1] + +allB.get(3) * matrixX[i][2] + allB.get(4) * matrixX[i][3] +
-                    +allB.get(5) * matrixX[i][4] + allB.get(6) * matrixX[i][5] + allB.get(7) * matrixX[i][6] + allB.get(8) * matrixX[i][7] + allB.get(9) * matrixX[i][8] + allB.get(10) * matrixX[i][9];
-        }
+            if(coef == 0) {
+                allY[i] = allB.get(0) + allB.get(1) * matrixX[i][0] + allB.get(2) * matrixX[i][1] + +allB.get(3) * matrixX[i][2] + allB.get(4) * matrixX[i][3] +
+                        +allB.get(5) * matrixX[i][4] + allB.get(6) * matrixX[i][5];
+            }
+            if(coef == 2) {
+                allY[i] = allB.get(0) + allB.get(1) * matrixX[i][0] + allB.get(2) * matrixX[i][1] + +allB.get(3) * matrixX[i][2] + allB.get(4) * matrixX[i][3] +
+                        +allB.get(5) * matrixX[i][4] + allB.get(6) * matrixX[i][5] + allB.get(7) * matrixX[i][6];
+            }
+            if(coef == 2) {
+                allY[i] = allB.get(0) + allB.get(1) * matrixX[i][0] + allB.get(2) * matrixX[i][1] + +allB.get(3) * matrixX[i][2] + allB.get(4) * matrixX[i][3] +
+                        +allB.get(5) * matrixX[i][4] + allB.get(6) * matrixX[i][5] + allB.get(7) * matrixX[i][6] + allB.get(8) * matrixX[i][7] + allB.get(9) * matrixX[i][8] + allB.get(10) * matrixX[i][9];
+            }
+            }
 
         //Перевірка
         System.out.println("Перевірка");
@@ -196,8 +220,18 @@ public class Main {
 
         stY = new double[N];
         for(int i = 0; i < stY.length; i++) {
-            stY[i] = studList.get(0) + studList.get(1) * matrixX[i][0] + studList.get(2) * matrixX[i][1] + studList.get(3) * matrixX[i][2] + studList.get(4) * matrixX[i][3] +
-                    +studList.get(5) * matrixX[i][4] + studList.get(6) * matrixX[i][5] + studList.get(7) * matrixX[i][6] + studList.get(8) * matrixX[i][7] + studList.get(9) * matrixX[i][8] + studList.get(10) * matrixX[i][9];
+            if(coef==2) {
+                stY[i] = studList.get(0) + studList.get(1) * matrixX[i][0] + studList.get(2) * matrixX[i][1] + studList.get(3) * matrixX[i][2] + studList.get(4) * matrixX[i][3] +
+                        +studList.get(5) * matrixX[i][4] + studList.get(6) * matrixX[i][5];
+            }
+            if(coef==2) {
+                stY[i] = studList.get(0) + studList.get(1) * matrixX[i][0] + studList.get(2) * matrixX[i][1] + studList.get(3) * matrixX[i][2] + studList.get(4) * matrixX[i][3] +
+                        +studList.get(5) * matrixX[i][4] + studList.get(6) * matrixX[i][5] + studList.get(7) * matrixX[i][6];
+            }
+            if(coef==2) {
+                stY[i] = studList.get(0) + studList.get(1) * matrixX[i][0] + studList.get(2) * matrixX[i][1] + studList.get(3) * matrixX[i][2] + studList.get(4) * matrixX[i][3] +
+                        +studList.get(5) * matrixX[i][4] + studList.get(6) * matrixX[i][5] + studList.get(7) * matrixX[i][6] + studList.get(8) * matrixX[i][7] + studList.get(9) * matrixX[i][8] + studList.get(10) * matrixX[i][9];
+            }
         }
 
         //Перевірка
@@ -214,13 +248,25 @@ public class Main {
             }
         }
         d = 11 - n0;
+
         if(fisherTest()){
             System.out.println("Рівняння регресії адекватне стосовно оригіналу");
-        }
-        else {
-            System.out.println("Рівняння регресії неадекватне стосовно оригіналу");
+            return true;
         }
 
+        if(coef == 0){
+            System.out.println("Переходимо до рівняння з урахуванням ефекту взаємодії.");
+            nEf++;
+            return false;
+        }
+        if(coef == 1){
+            System.out.println("Переходимо до рівняння з урахуванням ефекту взаємодії.");
+            nQt++;
+            return false;
+        }
+
+        System.out.println("Рівняння регресії неадекватне стосовно оригіналу");
+        return true;
     }
 
 
@@ -349,8 +395,17 @@ public class Main {
         for(int i =0; i < averageY.length; i++){
             dispersionAb += (m*(averageY[i] - stY[i])) / (N-d);
         }
-        double practiceF = dispersionAb / dispersionB2;
-        double theoreticalF = 164;
+        double practiceF = Math.abs(dispersionAb / dispersionB2);
+        double theoreticalF = data.getFisherValue(f3,f4,q);
+        try {
+        System.out.println("practiceF " + practiceF );
+        System.out.print("Введіть табличне значення розподілення Фішера f3= "+f3 +" f4= "+f4+" q="+q+ " : ");
+
+            theoreticalF  = Float.parseFloat(System.console().readLine());
+        }
+        catch (Exception ex){
+            System.out.println("Ft = "+theoreticalF);
+        }
         return practiceF < theoreticalF;
     }
 
